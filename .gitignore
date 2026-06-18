@@ -1,0 +1,58 @@
+# ============================================================
+#  FinTrack AI — Root .gitignore
+# ============================================================
+
+# ── Dependencies ─────────────────────────────────────────────
+node_modules/
+.pnp
+.pnp.js
+
+# ── Build outputs ─────────────────────────────────────────────
+dist/
+dist-ssr/
+build/
+out/
+
+# ── Environment & Secrets ─────────────────────────────────────
+# NEVER commit real API keys or environment configs
+.env
+.env.*
+.env.local
+!.env.example
+
+# ── SQLite Databases ──────────────────────────────────────────
+# Databases are auto-generated on first run from seed data.
+# They may also contain user-stored API keys in the settings table.
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# ── Logs ──────────────────────────────────────────────────────
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ── OS & Editor artifacts ─────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# ── Vite / React dev ─────────────────────────────────────────
+*.local
+.cache/
+
+# ── Misc ──────────────────────────────────────────────────────
+coverage/
+.nyc_output/

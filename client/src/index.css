@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --border: 214.3 31.8% 91.4%;
+    --accent: 262 83% 58%;
+    --accent-foreground: 210 40% 98%;
+    --success: 142 76% 36%;
+    --warning: 38 92% 50%;
+    --destructive: 0 84% 60%;
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 210 40% 98%;
+    --card: 224 71% 7%;
+    --card-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 12%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --border: 217.2 32.6% 17.5%;
+    --accent: 262 83% 58%;
+    --accent-foreground: 210 40% 98%;
+    --success: 142 76% 36%;
+    --warning: 38 92% 50%;
+    --destructive: 0 84% 60%;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground font-sans antialiased transition-colors duration-300;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/70 dark:bg-black/50 backdrop-blur-xl border border-white/20 dark:border-white/10;
+    box-shadow:
+      0 8px 32px rgba(0,0,0,0.06),
+      inset 0 1px 0 rgba(255,255,255,0.4);
+  }
+
+  .glass-card {
+    @apply bg-white/80 dark:bg-card/80 backdrop-blur-md border border-border/60 rounded-2xl transition-all duration-300;
+    box-shadow:
+      0 1px 3px rgba(0,0,0,0.04),
+      0 4px 16px rgba(0,0,0,0.04);
+  }
+
+  .glass-card:hover {
+    box-shadow:
+      0 4px 12px rgba(0,0,0,0.06),
+      0 12px 40px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-violet-500 to-purple-600 dark:from-blue-400 dark:via-violet-400 dark:to-purple-500;
+  }
+
+  .shimmer-btn {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,0.15),
+      transparent
+    );
+    animation: shimmer 3s infinite;
+  }
+
+  .glow {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.25), 0 0 60px hsl(var(--primary) / 0.1);
+  }
+
+  .gradient-bg {
+    background: 
+      radial-gradient(ellipse at 20% 50%, hsl(var(--primary) / 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, hsl(var(--accent) / 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, hsl(var(--success) / 0.05) 0%, transparent 50%);
+    animation: gradient-shift 20s ease infinite alternate;
+  }
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.2);
+  border-radius: 999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.35);
+}
+
+/* Global scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.3);
+}
+
+/* Keyframes */
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+/* Page transitions */
+.page-enter {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.page-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Stat card number animation */
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-count {
+  animation: count-up 0.6s ease forwards;
+}
+
+/* Progress ring animation */
+@keyframes progress-ring {
+  from { stroke-dashoffset: var(--ring-circumference); }
+  to { stroke-dashoffset: var(--ring-offset); }
+}
