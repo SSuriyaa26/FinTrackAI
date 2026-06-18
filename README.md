@@ -6,20 +6,65 @@
 
 ## Table of Contents
 
-1. [Project Overview](#1-project-overview)
-2. [System Architecture](#2-system-architecture)
-3. [AI & Machine Learning Subsystems](#3-ai--machine-learning-subsystems)
-4. [Core Technical Concepts](#4-core-technical-concepts)
-5. [Feature Specification](#5-feature-specification)
-6. [Technology Stack](#6-technology-stack)
-7. [Data Architecture](#7-data-architecture)
-8. [API Reference](#8-api-reference)
-9. [Local Development Setup](#9-local-development-setup)
-10. [Configuration](#10-configuration)
+1. [Problem Statement](#1-problem-statement)
+2. [Project Overview](#2-project-overview)
+3. [System Architecture](#3-system-architecture)
+4. [AI & Machine Learning Subsystems](#4-ai--machine-learning-subsystems)
+5. [Core Technical Concepts](#5-core-technical-concepts)
+6. [Feature Specification](#6-feature-specification)
+7. [Technology Stack](#7-technology-stack)
+8. [Data Architecture](#8-data-architecture)
+9. [API Reference](#9-api-reference)
+10. [Local Development Setup](#10-local-development-setup)
+11. [Configuration](#11-configuration)
 
 ---
 
-## 1. Project Overview
+## 1. Problem Statement
+
+### The Gap in Personal Financial Awareness
+
+Despite the rapid proliferation of digital payments in India — driven by UPI, mobile wallets, and net banking — a majority of households lack structured visibility into their own financial behaviour. Transactions are spread across multiple bank accounts, payment apps, and credit cards, each generating data in isolation. The net effect is that users experience **financial opacity**: they know money is leaving, but not where it goes, how fast, or whether it deviates from their own historical norms.
+
+Existing solutions fail on at least one of the following dimensions:
+
+| Problem | Existing Tool Limitation |
+|---|---|
+| **Data Fragmentation** | Banking apps show only one account's transactions — no unified view |
+| **No Behavioural Intelligence** | Traditional trackers record spend but offer no pattern analysis or anomaly flagging |
+| **Household Blindspot** | Finance tools are built for individuals, not multi-member households with shared and separate expenses |
+| **AI as a Gimmick** | Most "AI-powered" finance apps surface generic advice, not reasoning grounded in the user's actual transaction history |
+| **Friction at Entry** | Cloud-connected tools require OAuth integrations or account linking — high setup friction, high privacy risk |
+
+### What FinTrack AI Solves
+
+**FinTrack AI** addresses these gaps by rethinking personal finance as a **data intelligence problem**, not merely a ledger management problem.
+
+**1. Unified Household Ledger with Profile Isolation**  
+The platform supports multiple independent financial profiles within a single application instance. Each family member maintains a fully isolated SQLite database — no cross-contamination of data, no shared authentication bottleneck. A single household can track individual and shared finances simultaneously, switchable in one click.
+
+**2. Behavioural Anomaly Detection Without a Data Science Team**  
+Rather than passively displaying transactions, FinTrack AI continuously analyzes spend patterns to flag statistically significant deviations. A ₹850 grocery bill might look normal in isolation — but if the user's category average is ₹350, the system surfaces it immediately with a computed anomaly multiplier. This gives users the equivalent of a personal financial auditor embedded in their daily workflow.
+
+**3. LLM-Powered Financial Reasoning Grounded in Real Data**  
+The AI layer does not offer generic budgeting tips. It reasons over the user's actual transaction history — top categories, spend spikes, savings trajectory — and generates a concise, personalized narrative. The conversational assistant applies the same context augmentation, enabling users to ask natural-language questions ("Am I on track this month?") and receive answers that are arithmetically grounded rather than templated.
+
+**4. Predictive Spend Visibility**  
+By extrapolating current burn rate to the end of the month, the system shifts the user's mental model from *reactive* (reviewing past spend) to *proactive* (anticipating future spend before it occurs). This is particularly valuable for salaried employees managing a fixed monthly budget.
+
+**5. Privacy-First, Zero-Cloud Data Model**  
+All transaction data is stored locally in SQLite files on the user's own machine. No data is transmitted to any external server except for optional LLM inference calls to the Gemini API (which contain only anonymized aggregates, not raw transactions). This design respects data sovereignty and eliminates dependency on third-party financial data brokers.
+
+### Target Users
+
+- Salaried professionals tracking monthly budget adherence
+- Households where multiple earners maintain separate and joint expenses
+- Freelancers managing business and personal finances in parallel
+- Individuals seeking actionable intelligence, not just transaction logging
+
+---
+
+## 2. Project Overview
 
 **FinTrack AI** is a full-stack personal finance intelligence platform that combines structured financial data management with AI-driven behavioural analysis. The system processes transactional data to surface actionable insights using a layered approach: deterministic rule-based algorithms at the base, statistical models in the middle tier, and a Large Language Model (LLM) integration at the top for natural-language reasoning and narrative generation.
 
